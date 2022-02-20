@@ -42,6 +42,29 @@ namespace ContactsCRUDApp.Models
 
         }
 
+        public void SaveContact(ContactModel contact)
+        {
+            if (contact.ContactId > 0)
+            {
+                _repo.UpdateContact(contact);
+            }
+            else
+            {
+                contact.ContactId = _repo.CreateContact(contact);
+            }
+            ContactList = GetAllContacts();
+            CurrentContact = GetContact(contact.ContactId);
+
+        }
+
+        public void DeleteContact(int contactId)
+        {
+            _repo.DeleteContact(contactId);
+
+            ContactList = GetAllContacts();
+            CurrentContact = ContactList.FirstOrDefault();
+        }
+
         public List<ContactModel> GetAllContacts()
         {
            return  _repo.ListContacts();

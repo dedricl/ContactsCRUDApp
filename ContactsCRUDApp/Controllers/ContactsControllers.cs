@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ContactsCRUDApp.DataAccess.EF.Context;
+using ContactsCRUDApp.DataAccess.EF.Models;
+using ContactsCRUDApp.DataAccess.EF.Repositories;
+using ContactsCRUDApp.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,79 +13,58 @@ namespace ContactsCRUDApp.Controllers
 {
     public class ContactsControllers : Controller
     {
+        private readonly DedricDatabaseContext _context;
+
+        public ContactsControllers(DedricDatabaseContext context)
+        {
+            _context = context;
+        }
         // GET: ContactsControllers
-        public ActionResult Index()
+        public IActionResult Index()
         {
+            ContactsViewModel model = new ContactsViewModel(_context);
             return View();
         }
 
-        // GET: ContactsControllers/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: ContactsControllers/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        
 
         // POST: ContactsControllers/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        
+
+        public IActionResult Index(int contactId, string firstName, string lastName,string emailAddress, string phoneNumber)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            ContactsViewModel model = new ContactsViewModel(_context);
+            ContactModel contact = new ContactModel(contactId,firstName,lastName, emailAddress, phoneNumber);
+
+            model.SaveContact(contact);
+            model.IsActionSuccess = true;
+            model.ActionMessage = "Contact has been saved successfully";
+
+            return View(model);
+            
         }
 
-        // GET: ContactsControllers/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Update(int id)
         {
-            return View();
+            ContactsViewModel model = new ContactsViewModel(_context, id);
+            return View(model);
         }
 
-        // POST: ContactsControllers/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Delete(int id)
         {
-            try
+            ContactsViewModel model = new ContactsViewModel(_context);
+
+            if (id > 0)
             {
-                return RedirectToAction(nameof(Index));
+                model.DeleteContact(id);
             }
-            catch
-            {
-                return View();
-            }
+
+            model.IsActionSuccess = true;
+            model.ActionMessage = "Contact has been delete successfully";
+
+            return View("Index",model);
         }
 
-        // GET: ContactsControllers/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ContactsControllers/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
