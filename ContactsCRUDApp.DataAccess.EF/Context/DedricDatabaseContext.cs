@@ -18,7 +18,7 @@ namespace ContactsCRUDApp.DataAccess.EF.Context
         {
         }
 
-        public virtual DbSet<ContactModel> ContactInfo { get; set; }
+        public virtual DbSet<ContactModel> ContactModel { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

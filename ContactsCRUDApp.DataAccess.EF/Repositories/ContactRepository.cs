@@ -15,20 +15,20 @@ namespace ContactsCRUDApp.DataAccess.EF.Repositories
             _dbContext = dbContext;
         }
 
-        public int CreateContact(ContactModel contactInfo)
+        public int CreateContact(ContactModel contactModel)
         {
-            _dbContext.Add(contactInfo);
+            _dbContext.Add(contactModel);
             _dbContext.SaveChanges();
-            return contactInfo.ContactId;
+            return contactModel.ContactId;
         }
 
-        public int UpdateContact(ContactModel contactInfo)
+        public int UpdateContact(ContactModel contactModel)
         {
-            ContactModel exisitingContact = _dbContext.ContactInfo.Find(contactInfo.ContactId);
-            exisitingContact.FirstName = contactInfo.FirstName;
-            exisitingContact.LastName = contactInfo.LastName;
-            exisitingContact.EmailAddress = contactInfo.EmailAddress;
-            exisitingContact.PhoneNumber = contactInfo.PhoneNumber;
+            ContactModel exisitingContact = _dbContext.ContactModel.Find(contactModel.ContactId);
+            exisitingContact.FirstName = contactModel.FirstName;
+            exisitingContact.LastName = contactModel.LastName;
+            exisitingContact.EmailAddress = contactModel.EmailAddress;
+            exisitingContact.PhoneNumber = contactModel.PhoneNumber;
 
             _dbContext.SaveChanges();
             return exisitingContact.ContactId;
@@ -36,7 +36,7 @@ namespace ContactsCRUDApp.DataAccess.EF.Repositories
 
         public bool DeleteContact(int contactId)
         {
-            ContactModel exisitingContact = _dbContext.ContactInfo.Find(contactId);
+            ContactModel exisitingContact = _dbContext.ContactModel.Find(contactId);
 
             _dbContext.Remove(exisitingContact);
             _dbContext.SaveChanges();
@@ -46,14 +46,14 @@ namespace ContactsCRUDApp.DataAccess.EF.Repositories
 
         public List<ContactModel> ListContacts()
         {
-            List<ContactModel> currentContacts = _dbContext.ContactInfo.ToList();
+            List<ContactModel> currentContacts = _dbContext.ContactModel.ToList();
 
             return currentContacts;
         }
 
         public ContactModel GetSingleContact(int contactId)
         {
-            ContactModel singleContact =  _dbContext.ContactInfo.Find(contactId);
+            ContactModel singleContact =  _dbContext.ContactModel.Find(contactId);
             return singleContact;
         }
     }
