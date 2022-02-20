@@ -18,7 +18,7 @@ namespace ContactsCRUDApp.DataAccess.EF.Context
         {
         }
 
-        public virtual DbSet<ContactInfo> ContactInfo { get; set; }
+        public virtual DbSet<ContactModel> ContactInfo { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,7 +31,7 @@ namespace ContactsCRUDApp.DataAccess.EF.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ContactInfo>(entity =>
+            modelBuilder.Entity<ContactModel>(entity =>
             {
                 entity.HasKey(e => e.ContactId);
 

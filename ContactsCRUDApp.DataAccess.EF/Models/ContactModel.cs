@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ContactsCRUDApp.DataAccess.EF.Models
 {
-    public partial class ContactInfo
+    public partial class ContactModel
     {
         public int ContactId { get; set; }
         public string FirstName { get; set; }
@@ -13,7 +13,7 @@ namespace ContactsCRUDApp.DataAccess.EF.Models
         public string EmailAddress { get; set; }
         public string PhoneNumber { get; set; }
 
-        public ContactInfo(int contactId, string firstName, string lastName, string emailAddress, string phoneNumber)
+        public ContactModel(int contactId, string firstName, string lastName, string emailAddress, string phoneNumber)
         {
             ContactId = contactId;
             FirstName = firstName;
@@ -22,7 +22,7 @@ namespace ContactsCRUDApp.DataAccess.EF.Models
             PhoneNumber = phoneNumber;
         }
 
-        public ContactInfo()
+        public ContactModel()
         {
 
         }

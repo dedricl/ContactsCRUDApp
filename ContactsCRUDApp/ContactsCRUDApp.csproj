@@ -12,4 +12,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ContactsCRUDApp.DataAccess.EF\ContactsCRUDApp.DataAccess.EF.csproj" />
+  </ItemGroup>
+
 </Project>

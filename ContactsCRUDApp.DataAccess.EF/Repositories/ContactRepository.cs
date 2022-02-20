@@ -15,16 +15,16 @@ namespace ContactsCRUDApp.DataAccess.EF.Repositories
             _dbContext = dbContext;
         }
 
-        public int CreateContact(ContactInfo contactInfo)
+        public int CreateContact(ContactModel contactInfo)
         {
             _dbContext.Add(contactInfo);
             _dbContext.SaveChanges();
             return contactInfo.ContactId;
         }
 
-        public int UpdateContact(ContactInfo contactInfo)
+        public int UpdateContact(ContactModel contactInfo)
         {
-            ContactInfo exisitingContact = _dbContext.ContactInfo.Find(contactInfo.ContactId);
+            ContactModel exisitingContact = _dbContext.ContactInfo.Find(contactInfo.ContactId);
             exisitingContact.FirstName = contactInfo.FirstName;
             exisitingContact.LastName = contactInfo.LastName;
             exisitingContact.EmailAddress = contactInfo.EmailAddress;
@@ -36,7 +36,7 @@ namespace ContactsCRUDApp.DataAccess.EF.Repositories
 
         public bool DeleteContact(int contactId)
         {
-            ContactInfo exisitingContact = _dbContext.ContactInfo.Find(contactId);
+            ContactModel exisitingContact = _dbContext.ContactInfo.Find(contactId);
 
             _dbContext.Remove(exisitingContact);
             _dbContext.SaveChanges();
@@ -44,16 +44,16 @@ namespace ContactsCRUDApp.DataAccess.EF.Repositories
             return true;
         }
 
-        public List<ContactInfo> ListContacts()
+        public List<ContactModel> ListContacts()
         {
-            List<ContactInfo> currentContacts = _dbContext.ContactInfo.ToList();
+            List<ContactModel> currentContacts = _dbContext.ContactInfo.ToList();
 
             return currentContacts;
         }
 
-        public ContactInfo GetSingleContact(int contactId)
+        public ContactModel GetSingleContact(int contactId)
         {
-            ContactInfo singleContact =  _dbContext.ContactInfo.Find(contactId);
+            ContactModel singleContact =  _dbContext.ContactInfo.Find(contactId);
             return singleContact;
         }
     }
